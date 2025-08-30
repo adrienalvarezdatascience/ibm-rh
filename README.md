@@ -1,4 +1,4 @@
-# IBM HR Analytics – Cas d’usage RH (Marine Nationale)
+# IBM HR Analytics
 
 ## 🎯 Objectif du projet
 J’ai réalisé ce projet pour préparer un entretien à la **Direction du Personnel de la Marine nationale (DRH-M)**, plus précisément pour la section **Innovation et Transformation Numérique (ITN)**.  
