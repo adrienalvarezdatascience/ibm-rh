@@ -47,8 +47,8 @@ Il a été adapté ici comme **maquette** pour des problématiques proches de ce
 
 2. Installer les dépendances
    ```bash
-  pip install -r requirements.txt
-  ```
+   pip install -r requirements.txt
+   ```
 
 4. Lancer le script principal
    ```bash
