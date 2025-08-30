@@ -45,9 +45,11 @@ Il a été adapté ici comme **maquette** pour des problématiques proches de ce
    cd ibm-hr
 
 2. Installer les dépendances
+  ```bash
   pip install -r requirements.txt
 
 4. Lancer le script principal
+  ```bash
   python src/main.py
 
 6. Consulter les résultats générés dans le dossier reports/.
