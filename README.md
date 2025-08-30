@@ -9,7 +9,7 @@ L’idée est de montrer, à travers un cas pratique, ma capacité à utiliser l
 - identifier les leviers de stabilité et de fidélisation.  
 
 ## 📊 Jeu de données
-Le jeu de données utilisé est **IBM HR Analytics Employee Attrition & Performance**, un dataset librement disponible et largement utilisé pour des cas d’usage RH.  
+Le jeu de données utilisé est **IBM HR Analytics Employee Attrition & Performance**, un dataset disponible sur Kaggle.  
 Il a été adapté ici comme **maquette** pour des problématiques proches de celles que pourrait rencontrer la Marine nationale.
 
 ## 🧩 Cas d’usage développés
