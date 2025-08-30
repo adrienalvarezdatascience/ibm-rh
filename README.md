@@ -42,13 +42,13 @@ Il a été adapté ici comme **maquette** pour des problématiques proches de ce
 1. Cloner le dépôt  
    ```bash
    git clone https://github.com/adrienalvarezdatascience/ibm-hr.git
-   cd ibm-hr
+   cd ibm-hr```
 
 2. Installer les dépendances
   ```bash
   pip install -r requirements.txt```
 
 4. Lancer le script principal
-   python src/main.py
-
+   ```python src/main.py```
+  
 6. Consulter les résultats générés dans le dossier reports/.
