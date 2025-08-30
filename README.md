@@ -24,13 +24,7 @@ Il a été adapté ici comme **maquette** pour des problématiques proches de ce
    - Méthodes : K-Means + PCA pour la visualisation.  
    - Résultat : clusters transformés en segments lisibles pour les décideurs RH.  
 
-3. **Projection masse salariale (régression)**  
-   - But : prédire les salaires (`MonthlyIncome`) pour simuler l’impact budgétaire de certaines politiques.  
-   - Modèles : Régression linéaire, Arbre, Random Forest.  
-   - Analyse d’équité (fairness) : comparaison des erreurs par genre, statut marital et tranche d’âge.  
-   - Outil d’aide à la décision : parité relative → “erreurs Femmes = 1.05× erreurs Hommes”.  
-
-4. **Stabilité (YearsAtCompany)**  
+3. **Stabilité (YearsAtCompany)**  
    - But : comprendre ce qui retient le personnel (ancienneté dans l’organisation).  
    - Approche : prédiction en cross-validation + SHAP.  
    - Résultat : les variables d’expérience (JobLevel, YearsWithCurrManager, TotalWorkingYears) sont déterminantes.  
