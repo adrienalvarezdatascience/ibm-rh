@@ -1,13 +1,11 @@
 # main.py
 # Script d'orchestration du projet RH (Attrition, Clustering, Stabilité)
-# Modifs :
-# - Suppression complète du volet "Régression (MonthlyIncome)"
-# - Clustering : export des profils pour K=2 ET K=5
-# - Pandas: accès aux valeurs via .iloc[0] pour éviter les FutureWarning
+# Version simplifiée :
+# - Le CSV doit déjà être présent dans le dossier "data/"
+# - Plus de téléchargement automatique depuis internet
 
 import os
 import json
-import urllib.request
 import numpy as np
 import pandas as pd
 
@@ -16,14 +14,33 @@ from models_attrition import train_and_compare as attrition_train_compare, cost_
 from models_clustering import build_matrix, fit_kmeans, profile_clusters, score_range
 from models_stability import train_regression as stab_train_regression, top_factors_shap_aggregated
 
+# ---------------------------------------------------------------------
+# 0) Chemins & setup
+# ---------------------------------------------------------------------
+DATA_DIR = "data"
+REPORTS_DIR = os.path.join("reports")
+FIG_DIR = os.path.join(REPORTS_DIR, "figures")
+
+os.makedirs(DATA_DIR, exist_ok=True)
+os.makedirs(REPORTS_DIR, exist_ok=True)
+os.makedirs(FIG_DIR, exist_ok=True)
+
 CSV_NAME = "WA_Fn-UseC_-HR-Employee-Attrition.csv"
+CSV_PATH = os.path.join(DATA_DIR, CSV_NAME)
 
 np.random.seed(42)
+
+# Vérification de la présence du fichier
+if not os.path.exists(CSV_PATH):
+    raise FileNotFoundError(
+        f"❌ Le fichier {CSV_NAME} est introuvable dans {DATA_DIR}/.\n"
+        f"Merci de le placer avant de lancer le script."
+    )
 
 # ---------------------------------------------------------------------
 # 1) Chargement & préparation
 # ---------------------------------------------------------------------
-df = load_data(CSV_NAME)
+df = load_data(CSV_PATH)
 
 def split_cols(df_):
     cat = [c for c in df_.columns if df_[c].dtype == "object"]
@@ -118,7 +135,6 @@ if "YearsAtCompany" in df.columns:
         top10_attr.to_csv(os.path.join(REPORTS_DIR, "top10_attrition.csv"), index=False)
 
         common = sorted(list(set(top10_stab["base_feat"]).intersection(set(top10_attr["base_feat"]))))
-
         with open(os.path.join(REPORTS_DIR, "top10_common_stability_attrition.json"), "w") as f:
             json.dump({"common_variables": common}, f, indent=2)
 
