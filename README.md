@@ -1,5 +1,3 @@
-# ibm-hr
-
 # IBM HR Analytics – Cas d’usage RH (Marine Nationale)
 
 ## 🎯 Objectif du projet
