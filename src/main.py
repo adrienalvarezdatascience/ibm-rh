@@ -23,7 +23,7 @@ np.random.seed(42)
 # ---------------------------------------------------------------------
 # 1) Chargement & préparation
 # ---------------------------------------------------------------------
-df = load_data(CSV_PATH)
+df = load_data(CSV_NAME)
 
 def split_cols(df_):
     cat = [c for c in df_.columns if df_[c].dtype == "object"]
