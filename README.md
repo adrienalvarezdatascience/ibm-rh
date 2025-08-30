@@ -36,7 +36,7 @@ Il a été adapté ici comme **maquette** pour des problématiques proches de ce
 - **Organisation du code** :  
   - `src/` → modules Python (prétraitement, modèles, main.py)  
   - `notebooks/` → notebooks de résultats (visualisations + explications)  
-  - `reports/` → fichiers générés (scores, fairness, clusters, etc.)  
+  - `report/` → bilan du projet 
 
 ## 🚀 Comment lancer le projet
 1. Cloner le dépôt  
