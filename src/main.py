@@ -1,6 +1,8 @@
 # main.py
 # Script d'orchestration du projet RH (Attrition, Clustering, Régression, Stabilité)
-# Modifs : accès aux valeurs via .iloc[0] au lieu de float(Series) pour éviter les FutureWarning.
+# Modifs :
+# - Clustering : export des profils pour K=2 ET K=5
+# - Pandas: accès aux valeurs via .iloc[0] pour éviter les FutureWarning
 
 import os
 import json
@@ -88,16 +90,24 @@ print("\n[CLUSTERING] KMeans + profils de clusters...")
 df_clust = df.drop(columns=["Attrition"]) if "Attrition" in df.columns else df.copy()
 cat_cols_c, num_cols_c = split_cols(df_clust)
 
+# Matrice dense pour KMeans
 Xmat, prepro_clust = build_matrix(df_clust, cat_cols_c, num_cols_c)
 
+# Evaluation des K (2..8) : silhouette + inertia
 scores_k = score_range(Xmat, k_min=2, k_max=8)
 scores_k.to_csv(os.path.join(REPORTS_DIR, "clustering_k_scores.csv"), index=False)
 
+# ✅ Profils pour K=2
+km2 = fit_kmeans(Xmat, k=2)
+profiles_k2 = profile_clusters(df_clust, km2.labels_, cat_cols_c, num_cols_c)
+profiles_k2.to_csv(os.path.join(REPORTS_DIR, "clustering_k2_profiles.csv"), index=False)
+
+# ✅ Profils pour K=5 (retenu pour storytelling)
 km5 = fit_kmeans(Xmat, k=5)
 profiles_k5 = profile_clusters(df_clust, km5.labels_, cat_cols_c, num_cols_c)
 profiles_k5.to_csv(os.path.join(REPORTS_DIR, "clustering_k5_profiles.csv"), index=False)
 
-print("  -> clustering_k_scores.csv + clustering_k5_profiles.csv sauvegardés.")
+print("  -> clustering_k_scores.csv + clustering_k2_profiles.csv + clustering_k5_profiles.csv sauvegardés.")
 
 # ---------------------------------------------------------------------
 # 4) RÉGRESSION (MonthlyIncome) + fairness
