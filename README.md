@@ -1,58 +1,27 @@
 # IBM HR Analytics
 
-## 🎯 Objectif du projet
-J’ai réalisé ce projet pour préparer un entretien à la **Direction du Personnel de la Marine nationale (DRH-M)**, plus précisément pour la section **Innovation et Transformation Numérique (ITN)**.  
-L’idée est de montrer, à travers un cas pratique, ma capacité à utiliser la data science pour répondre à des enjeux RH concrets :  
-- anticiper les départs,  
-- mieux comprendre les profils du personnel,  
-- analyser la masse salariale et l’équité,  
-- identifier les leviers de stabilité et de fidélisation.  
+J'ai monté ce projet pour préparer un entretien avec la Marine Nationale (section ITN). L’objectif est de montrer sur un cas concret, comment j’utilise la data pour des sujets RH.
+<img width="550" height="284" alt="image" src="https://github.com/user-attachments/assets/32811649-0eb6-4a86-85c2-f21029d84954" />
 
-## 📊 Jeu de données
-Le jeu de données utilisé est **IBM HR Analytics Employee Attrition & Performance**, un dataset disponible sur Kaggle.  
-Il a été adapté ici comme **maquette** pour des problématiques proches de celles que pourrait rencontrer la Marine nationale.
 
-## 🧩 Cas d’usage développés
-1. **Attrition (classification)**  
-   - But : détecter les personnels à risque de départ afin de déclencher un soutien ciblé (moral, famille, affectation).  
-   - Modèles : Régression logistique, Arbre de décision, Random Forest, KNN.  
-   - Optimisation : recherche d’hyperparamètres + métriques adaptées (PR-AUC, F1).  
-   - Explicabilité : SHAP + scénarios “what-if”.  
+Ce que je cherche à faire :
+- Anticiper les départs.
+- Mieux comprendre les profils.
+- Identifier ce qui fait la rétention des employés.
 
-2. **Segmentation (clustering)**  
-   - But : regrouper les profils en segments utiles pour le pilotage RH (ex : jeunes en surcharge, cadres en milieu de carrière).  
-   - Méthodes : K-Means + PCA pour la visualisation.  
-   - Résultat : clusters transformés en segments lisibles pour les décideurs RH.  
+Pour ce faire j’utilise le dataset public “IBM HR Analytics Employee Attrition & Performance”.
 
-3. **Stabilité (YearsAtCompany)**  
-   - But : comprendre ce qui retient le personnel (ancienneté dans l’organisation).  
-   - Approche : prédiction en cross-validation + SHAP.  
-   - Résultat : les variables d’expérience (JobLevel, YearsWithCurrManager, TotalWorkingYears) sont déterminantes.  
-   - Comparaison avec l’attrition → double vision : “ce qui retient” vs “ce qui pousse à partir”.  
+Vous pourrez retrouver :
 
-## 🛠️ Environnement technique
-- **Langages** : Python 3  
-- **Bibliothèques principales** : scikit-learn, pandas, matplotlib, shap  
-- **Organisation du code** :  
-  - `src/` → modules Python (prétraitement, modèles, main.py)  
-  - `notebooks/` → notebooks de résultats (visualisations + explications)  
-  - `report/` → bilan du projet 
+Indicateur rétention (classification)
+Objectif : repérer tôt les personnels à risque pour déclencher un soutien ciblé (moral, famille, affectation).
+Méthode : régression logistique surtout (comparée à arbre, Random Forest, KNN), validation croisée, métriques adaptées aux classes déséquilibrées (PR-AUC, F1).
+Pratique : choix d’un seuil “métier” (mode préventif vs très sûr).
 
-## 🚀 Comment lancer le projet
-1. Cloner le dépôt  
-   ```bash
-   git clone https://github.com/adrienalvarezdatascience/ibm-hr.git
-   cd ibm-hr
-   ```
+Segmentation employés (clustering)
+Objectif : regrouper les profils pour adapter les actions RH.
+Méthodes : K-Means, visualisation PCA.
 
-2. Installer les dépendances
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. Lancer le script principal
-   ```bash
-   python src/main.py
-   ```
-   
-6. Consulter les résultats générés dans le dossier reports/.
+Stabilité (regression)
+Objectif : comprendre ce qui retient les personnes.
+Méthode : Linéaire, Arbre, Random Forest.
