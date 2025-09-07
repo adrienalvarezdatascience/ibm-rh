@@ -1,6 +1,7 @@
 # IBM HR Analytics
 
 J'ai monté ce projet pour préparer un entretien avec la Marine Nationale (section ITN). L’objectif est de montrer sur un cas concret, comment j’utilise la data pour des sujets RH.
+
 <img width="550" height="284" alt="image" src="https://github.com/user-attachments/assets/32811649-0eb6-4a86-85c2-f21029d84954" />
 
 
