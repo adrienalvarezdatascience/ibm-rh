@@ -1,6 +1,4 @@
-# models_stability.py
-# Modélisation de la stabilité (YearsAtCompany) + top facteurs via SHAP (agrégé par variable d’origine).
-# Pas de graphiques ici : on renvoie juste des tableaux faciles à exploiter ailleurs.
+# Objectifs : modélisation de la stabilité (YearsAtCompany) + top facteurs via SHAP..
 
 from typing import List, Tuple
 import numpy as np
@@ -16,7 +14,6 @@ import shap
 
 
 def _build_preprocessor_dense(cat_cols: List[str], num_cols: List[str]) -> ColumnTransformer:
-    """Préprocesseur dense (important pour SHAP + RandomForest)."""
     try:
         ohe = OneHotEncoder(handle_unknown="ignore", sparse_output=False)
     except TypeError:
@@ -33,13 +30,8 @@ def train_regression(
     cat_cols: List[str],
     num_cols: List[str],
 ) -> Tuple[pd.DataFrame, Pipeline, np.ndarray]:
-    """
-    Modèle simple et robuste : RandomForestRegressor (souvent très performant ici).
-    Retourne :
-      - scores (MAE, R²)
-      - pipeline entraîné
-      - prédictions complètes
-    """
+
+    # Usage de randomforestregressor
     prepro = _build_preprocessor_dense(cat_cols, num_cols)
     reg = RandomForestRegressor(n_estimators=400, random_state=42, n_jobs=-1)
     pipe = Pipeline([("prep", prepro), ("reg", reg)])
@@ -55,12 +47,8 @@ def train_regression(
 
 
 def _shap_values_2d(shap_out, is_classifier: bool, class_index: int = 1) -> np.ndarray:
-    """
-    Harmonise la sortie SHAP vers un array 2D (n_samples, n_features),
-    peu importe la version de SHAP.
-    """
+    # Simplifie la sortie SHAP
     if isinstance(shap_out, list):
-        # SHAP renvoie une liste pour les classifieurs (par classe)
         arr = np.asarray(shap_out[class_index] if is_classifier else shap_out[0])
     else:
         arr = np.asarray(getattr(shap_out, "values", shap_out))
@@ -76,14 +64,11 @@ def top_factors_shap_aggregated(
     y: np.ndarray,
     cat_cols: List[str],
     num_cols: List[str],
-    task: str = "reg",        # "reg" (stabilité) ou "clf" (attrition)
+    task: str = "reg", 
     topn: int = 10,
 ) -> pd.DataFrame:
-    """
-    Entraîne un petit RandomForest (dense), calcule SHAP,
-    puis agrège les importances par variable d’origine (pas par one-hot).
-    Retourne un DataFrame (base_feat, abs_shap agrégé).
-    """
+
+    # Calcul SHAP
     prepro = _build_preprocessor_dense(cat_cols, num_cols)
     Xd = prepro.fit_transform(X)
 
