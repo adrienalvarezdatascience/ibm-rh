@@ -1,4 +1,4 @@
-# Objectifs : modélisation de la stabilité (YearsAtCompany) + top facteurs via SHAP..
+# Objectifs : modélisation de la stabilité (YearsAtCompany) + top facteurs via SHAP
 
 from typing import List, Tuple
 import numpy as np
