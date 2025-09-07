@@ -5,10 +5,8 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.compose import ColumnTransformer
 
 def load_data(path: str) -> pd.DataFrame:
-    """
-    Charge le dataset IBM HR (ou autre).
-    Supprime les colonnes qui ne servent jamais (identifiants, constantes).
-    """
+    
+    # Charge le dataset IBM HR (ou autre).
     df = pd.read_csv(path)
 
     # On remplace la cible "Attrition" par 0/1 si elle existe
@@ -23,17 +21,14 @@ def load_data(path: str) -> pd.DataFrame:
 
 
 def build_preprocessor(df: pd.DataFrame) -> ColumnTransformer:
-    """
-    Crée un transformateur scikit-learn qui encode les variables catégorielles
-    et normalise les variables numériques.
-    """
+    #Crée un transformateur scikit-learn qui encode les variables catégorielles et normalise les variables numériques.
     cat_cols = [c for c in df.columns if df[c].dtype == "object"]
     num_cols = [c for c in df.columns if c not in cat_cols]
 
     try:
-        ohe = OneHotEncoder(handle_unknown="ignore", sparse_output=False)  # sklearn >= 1.2
+        ohe = OneHotEncoder(handle_unknown="ignore", sparse_output=False) 
     except TypeError:
-        ohe = OneHotEncoder(handle_unknown="ignore", sparse=False)        # compat versions plus anciennes
+        ohe = OneHotEncoder(handle_unknown="ignore", sparse=False)
 
     prepro = ColumnTransformer([
         ("cat", ohe, cat_cols),
