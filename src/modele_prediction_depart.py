@@ -1,4 +1,4 @@
-# Objectif : comparer plusieurs modèles, calculer les KPI utiles
+# Objectifs : comparer plusieurs modèles, calculer les KPI utiles
 
 from dataclasses import dataclass
 from typing import Dict, List, Tuple
