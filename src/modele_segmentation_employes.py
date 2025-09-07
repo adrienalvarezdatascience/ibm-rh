@@ -1,6 +1,4 @@
-# models_clustering.py
-# Clustering KMeans + profils de clusters.
-# Idée : transformer les features, entraîner KMeans, puis produire des profils lisibles.
+# Objectifs : transformer les features, entraîner KMeans, puis produire des profils lisibles.
 
 from typing import Dict, List, Tuple
 import numpy as np
@@ -17,7 +15,6 @@ def build_matrix(
     cat_cols: List[str],
     num_cols: List[str]
 ) -> Tuple[np.ndarray, ColumnTransformer]:
-    """Transforme le DF en matrice dense prête pour KMeans (OHE + scaling)."""
     try:
         ohe = OneHotEncoder(handle_unknown="ignore", sparse_output=False)
     except TypeError:
@@ -31,17 +28,14 @@ def build_matrix(
 
 
 def fit_kmeans(Xmat: np.ndarray, k: int) -> KMeans:
-    """KMeans simple, pas de chichi."""
     km = KMeans(n_clusters=k, n_init=10, random_state=42)
     km.fit(Xmat)
     return km
 
 
 def score_range(Xmat: np.ndarray, k_min: int = 2, k_max: int = 10) -> pd.DataFrame:
-    """
-    Calcule silhouette et inertia pour différents K.
-    Utile pour choisir un K raisonnable (silhouette ↑, inertia ↓).
-    """
+    # Calcule silhouette et inertia pour différents K.
+    # Utile pour choisir un K raisonnable
     rows = []
     for k in range(k_min, k_max + 1):
         km = fit_kmeans(Xmat, k)
@@ -56,12 +50,8 @@ def profile_clusters(
     cat_cols: List[str],
     num_cols: List[str]
 ) -> pd.DataFrame:
-    """
-    Produit un tableau concis par cluster :
-      - Count
-      - Moyennes des variables numériques
-      - Catégories dominantes pour les variables catégorielles
-    """
+    
+    # Produit un tableau concis par cluster :
     dfp = df.copy()
     dfp["Cluster"] = labels
     profiles = []
