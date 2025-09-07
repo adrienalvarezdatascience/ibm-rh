@@ -1,4 +1,4 @@
-# IBM HR Analytics
+# IBM RH
 
 J'ai monté ce projet pour préparer un entretien avec la Marine Nationale (section ITN). L’objectif est de montrer sur un cas concret, comment j’utilise la data pour des sujets RH.
 
