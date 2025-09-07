@@ -1,5 +1,4 @@
-# preprocessing.py
-# Fonctions de préparation des données pour le projet RH (Attrition, Clustering, Régression, Stabilité)
+# Objectif : Fonctions de préparation des données pour le projet RH (Attrition, Clustering, Régression, Stabilité)
 
 import pandas as pd
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
