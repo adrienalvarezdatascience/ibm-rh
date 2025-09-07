@@ -1,7 +1,4 @@
-# models_attrition.py
-# Modèles de classification pour l’attrition (départ = 1)
 # Objectif : comparer plusieurs modèles, calculer les KPI utiles
-# (PR-AUC, F1, seuil optimal) et retourner le meilleur pipeline prêt à l’emploi.
 
 from dataclasses import dataclass
 from typing import Dict, List, Tuple
@@ -43,7 +40,7 @@ class AttritionResult:
     best_f1: float
     best_thr: float
     brier: float
-    proba_oof: np.ndarray  # probabilités OOF pour ce modèle (utile pour analyser seuils)
+    proba_oof: np.ndarray
 
 
 def _evaluate_model(
@@ -81,12 +78,8 @@ def train_and_compare(
     num_cols: List[str],
     n_splits: int = 5,
 ) -> Tuple[Dict[str, AttritionResult], Pipeline]:
-    """
-    Compare LogReg / Tree / RF / KNN avec la même prépa de features.
-    Retourne :
-      - un dict {nom_modèle -> résultats}
-      - le pipeline du meilleur modèle (par PR-AUC) entraîné sur tout le dataset
-    """
+    
+    # Compare LogReg / Tree / RF / KNN avec la même prépa de features.
     prepro = _build_preprocessor(cat_cols, num_cols)
     cv = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=42)
 
@@ -117,11 +110,8 @@ def cost_optimal_threshold(
     cost_fp: float = 1.0,
     grid_size: int = 200
 ) -> Tuple[float, float]:
-    """
-    Cherche le seuil qui minimise le coût total :
-      coût = cost_fn * FN + cost_fp * FP
-    Retourne (seuil_optimal, coût_minimal).
-    """
+    
+    # Cherche le seuil qui minimise le coût total : coût = cost_fn * FN + cost_fp * FP
     thresholds = np.linspace(0, 1, grid_size)
     best_t, best_c = 0.5, np.inf
     for t in thresholds:
