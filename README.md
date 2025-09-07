@@ -17,7 +17,7 @@ L’objectif : montrer, sur un cas concret, comment j’utilise la data pour des
 
 ---
 
-## 📦 Contenu du projet
+## Contenu du projet
 
 ### 1) Indicateur rétention (classification)
 - **But** : repérer tôt les personnels à risque pour déclencher un soutien ciblé (moral, famille, affectation).  
