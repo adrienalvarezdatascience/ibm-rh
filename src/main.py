@@ -1,9 +1,3 @@
-# main.py
-# Script d'orchestration du projet RH (Attrition, Clustering, Stabilité)
-# Version simplifiée :
-# - Le CSV doit déjà être présent dans le dossier "data/"
-# - Plus de téléchargement automatique depuis internet
-
 import os
 import json
 import numpy as np
@@ -14,9 +8,7 @@ from models_attrition import train_and_compare as attrition_train_compare, cost_
 from models_clustering import build_matrix, fit_kmeans, profile_clusters, score_range
 from models_stability import train_regression as stab_train_regression, top_factors_shap_aggregated
 
-# ---------------------------------------------------------------------
-# 0) Chemins & setup
-# ---------------------------------------------------------------------
+# Chemins & setup
 DATA_DIR = "data"
 REPORTS_DIR = os.path.join("reports")
 FIG_DIR = os.path.join(REPORTS_DIR, "figures")
@@ -37,9 +29,7 @@ if not os.path.exists(CSV_PATH):
         f"Merci de le placer avant de lancer le script."
     )
 
-# ---------------------------------------------------------------------
-# 1) Chargement & préparation
-# ---------------------------------------------------------------------
+# Chargement & préparation
 df = load_data(CSV_PATH)
 
 def split_cols(df_):
@@ -49,9 +39,7 @@ def split_cols(df_):
 
 print(f"Dataset chargé : {df.shape[0]} lignes, {df.shape[1]} colonnes.")
 
-# ---------------------------------------------------------------------
-# 2) ATTRITION (classification)
-# ---------------------------------------------------------------------
+# ATTRITION (classification)
 if "Attrition" in df.columns:
     print("\n[ATTRITION] Entraînement et comparaison de modèles...")
     y_attr = df["Attrition"].values
