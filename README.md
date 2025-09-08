@@ -38,18 +38,18 @@ L’objectif : montrer sur un cas concret comment j’utilise la data pour des s
 
 1. Cloner le dépôt
    ```bash
-git clone https://github.com/adrienalvarezdatascience/ibm-hr.git
-cd ibm-hr
-      ```
-
-Installer les dépendances
-   ```bash
-pip install -r requirements.txt
+   git clone https://github.com/adrienalvarezdatascience/ibm-hr.git
+   cd ibm-hr
    ```
 
-Lancer le script principal
+2. Installer les dépendances
    ```bash
-python src/main.py
+   pip install -r requirements.txt
    ```
 
-Consulter les résultats générés dans le dossier reports/.
+4. Lancer le script principal
+   ```bash
+   python src/main.py
+   ```
+   
+6. Consulter les résultats générés dans le dossier reports/.
