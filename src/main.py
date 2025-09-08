@@ -19,12 +19,20 @@ from modele_indicateur_retention import (
 )
 
 # Jeu de données
-from pathlib import Path
+# Dossiers et préparation
+DOSSIER_DONNEES = "data"
+DOSSIER_RAPPORTS = os.path.join("reports")
+DOSSIER_FIGURES = os.path.join(DOSSIER_RAPPORTS, "figures")
 
-ROOT = Path(__file__).resolve().parents[1]
-CSV_PATH = ROOT / "data" / "WA_Fn-UseC_-HR-Employee-Attrition.csv"
+os.makedirs(DOSSIER_DONNEES, exist_ok=True)
+os.makedirs(DOSSIER_RAPPORTS, exist_ok=True)
+os.makedirs(DOSSIER_FIGURES, exist_ok=True)
 
-df = load_data(str(CSV_PATH))
+NOM_CSV = "WA_Fn-UseC_-HR-Employee-Attrition.csv"
+CHEMIN_CSV = os.path.join(DOSSIER_DONNEES, NOM_CSV)
+
+# Chargement du fichier
+df = load_data(CHEMIN_CSV)
 
 np.random.seed(42)
 
