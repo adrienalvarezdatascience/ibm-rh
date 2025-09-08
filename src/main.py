@@ -110,7 +110,7 @@ print("→ fichiers générés : clustering_k_scores.csv, clustering_k2_profiles
 
 # 3) régression (indicateur de rétention / YearsAtCompany)
 if "YearsAtCompany" in df.columns:
-    print("\n[régression] indicateur de rétention (YearsAtCompany) + shap top-10…")
+    print("\n[régression] indicateur de rétention (YearsAtCompany)…")
     y_yac = df["YearsAtCompany"].values
     x_yac = df.drop(columns=["YearsAtCompany"])
     cat_s, num_s = colonnes_categorique_numerique(x_yac)
