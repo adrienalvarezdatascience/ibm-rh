@@ -44,9 +44,9 @@ def colonnes_categorique_numerique(df_: pd.DataFrame):
     return cat, num
 
 
-# 1) prédiction des départs
+# 1) prediction départ (classification)
 if "Attrition" in df.columns:
-    print("\n[Attrition] entraînement et comparaison des modèles…")
+    print("\n[prédiction départ] entraînement et comparaison des modèles…")
     y_attr = df["Attrition"].values
     x_attr = df.drop(columns=["Attrition"])
     cat_cols, num_cols = colonnes_categorique_numerique(x_attr)
@@ -87,8 +87,8 @@ if "Attrition" in df.columns:
     print("→ fichiers générés : attrition_metrics.csv, attrition_threshold.json")
 
 
-# 2) segmentation employés
-print("\n[Segmentation] kmeans et profils de clusters…")
+# 2) segmentation (clustering)
+print("\n[segmentation] kmeans et profils de clusters…")
 df_clust = df.drop(columns=["Attrition"]) if "Attrition" in df.columns else df.copy()
 cat_c, num_c = colonnes_categorique_numerique(df_clust)
 
@@ -108,9 +108,9 @@ profils_k5.to_csv(os.path.join(rapports_dir, "clustering_k5_profiles.csv"), inde
 print("→ fichiers générés : clustering_k_scores.csv, clustering_k2_profiles.csv, clustering_k5_profiles.csv")
 
 
-# 3) indicateur de rétention
+# 3) indicateur de rétention (régression)
 if "YearsAtCompany" in df.columns:
-    print("\n[Stabilité] régression YearsAtCompany + shap top-10…")
+    print("\n[indicateur rétention] régression YearsAtCompany + shap top-10…")
     y_yac = df["YearsAtCompany"].values
     x_yac = df.drop(columns=["YearsAtCompany"])
     cat_s, num_s = colonnes_categorique_numerique(x_yac)
