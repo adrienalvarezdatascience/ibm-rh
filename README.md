@@ -38,8 +38,8 @@ L’objectif : montrer sur un cas concret comment j’utilise la data pour des s
 
 1. Cloner le dépôt
    ```bash
-   git clone https://github.com/adrienalvarezdatascience/ibm-hr.git
-   cd ibm-hr
+   git clone https://github.com/adrienalvarezdatascience/ibm-rh.git
+   cd ibm-rh
    ```
 
 2. Installer les dépendances
