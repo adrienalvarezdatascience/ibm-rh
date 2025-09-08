@@ -19,7 +19,13 @@ from modele_indicateur_retention import (
 )
 
 # Jeu de données
-df = load_data("WA_Fn-UseC_-HR-Employee-Attrition.csv")
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+CSV_PATH = ROOT / "data" / "WA_Fn-UseC_-HR-Employee-Attrition.csv"
+
+df = load_data(str(CSV_PATH))
+
 np.random.seed(42)
 
 print(f"Jeu de données chargé : {df.shape[0]} lignes × {df.shape[1]} colonnes.")
