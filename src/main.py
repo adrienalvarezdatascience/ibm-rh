@@ -44,9 +44,9 @@ def colonnes_categorique_numerique(df_: pd.DataFrame):
     return cat, num
 
 
-# 1) prediction départ (classification)
+# 1) classification (prédiction départ / attrition)
 if "Attrition" in df.columns:
-    print("\n[prédiction départ] entraînement et comparaison des modèles…")
+    print("\n[classification] prédiction départ (attrition)…")
     y_attr = df["Attrition"].values
     x_attr = df.drop(columns=["Attrition"])
     cat_cols, num_cols = colonnes_categorique_numerique(x_attr)
@@ -68,12 +68,12 @@ if "Attrition" in df.columns:
             }
         )
     df_scores_attr = pd.DataFrame(lignes).sort_values("pr_auc", ascending=False)
-    df_scores_attr.to_csv(os.path.join(rapports_dir, "attrition_metrics.csv"), index=False)
+    df_scores_attr.to_csv(os.path.join(rapports_dir, "classification_metrics.csv"), index=False)
 
     nom_top = df_scores_attr.iloc[0]["modele"]
     proba_oof = resultats[nom_top].proba_oof
     seuil_opt, cout_min = seuil_cout_metier(proba_oof, y_attr, cost_fn=10.0, cost_fp=1.0)
-    with open(os.path.join(rapports_dir, "attrition_threshold.json"), "w") as f:
+    with open(os.path.join(rapports_dir, "classification_threshold.json"), "w") as f:
         json.dump(
             {
                 "meilleur_modele": nom_top,
@@ -84,11 +84,11 @@ if "Attrition" in df.columns:
             indent=2,
         )
 
-    print("→ fichiers générés : attrition_metrics.csv, attrition_threshold.json")
+    print("→ fichiers générés : classification_metrics.csv, classification_threshold.json")
 
 
-# 2) segmentation (clustering)
-print("\n[segmentation] kmeans et profils de clusters…")
+# 2) clustering (segmentation employés / KMeans)
+print("\n[clustering] segmentation employés (kmeans)…")
 df_clust = df.drop(columns=["Attrition"]) if "Attrition" in df.columns else df.copy()
 cat_c, num_c = colonnes_categorique_numerique(df_clust)
 
@@ -108,9 +108,9 @@ profils_k5.to_csv(os.path.join(rapports_dir, "clustering_k5_profiles.csv"), inde
 print("→ fichiers générés : clustering_k_scores.csv, clustering_k2_profiles.csv, clustering_k5_profiles.csv")
 
 
-# 3) indicateur de rétention (régression)
+# 3) régression (indicateur de rétention / YearsAtCompany)
 if "YearsAtCompany" in df.columns:
-    print("\n[indicateur rétention] régression YearsAtCompany + shap top-10…")
+    print("\n[régression] indicateur de rétention (YearsAtCompany) + shap top-10…")
     y_yac = df["YearsAtCompany"].values
     x_yac = df.drop(columns=["YearsAtCompany"])
     cat_s, num_s = colonnes_categorique_numerique(x_yac)
@@ -118,10 +118,10 @@ if "YearsAtCompany" in df.columns:
     df_scores_stab, pipe_stab, yhat_yac = entrainer_regression_stabilite(
         x_yac, y_yac, cat_s, num_s
     )
-    df_scores_stab.to_csv(os.path.join(rapports_dir, "stability_scores.csv"), index=False)
+    df_scores_stab.to_csv(os.path.join(rapports_dir, "regression_scores.csv"), index=False)
 
     top10_stab = facteurs_shap_top(x_yac, y_yac, cat_s, num_s, task="reg", topn=10)
-    top10_stab.to_csv(os.path.join(rapports_dir, "top10_stability.csv"), index=False)
+    top10_stab.to_csv(os.path.join(rapports_dir, "regression_top10.csv"), index=False)
 
     if "Attrition" in df.columns:
         x_attr2 = df.drop(columns=["Attrition"])
@@ -129,15 +129,15 @@ if "YearsAtCompany" in df.columns:
         cat_a, num_a = colonnes_categorique_numerique(x_attr2)
 
         top10_attr = facteurs_shap_top(x_attr2, y_attr2, cat_a, num_a, task="clf", topn=10)
-        top10_attr.to_csv(os.path.join(rapports_dir, "top10_attrition.csv"), index=False)
+        top10_attr.to_csv(os.path.join(rapports_dir, "regression_top10_attrition.csv"), index=False)
 
         communs = sorted(
             set(top10_stab["base_feat"]).intersection(set(top10_attr["base_feat"]))
         )
-        with open(os.path.join(rapports_dir, "top10_common_stability_attrition.json"), "w") as f:
+        with open(os.path.join(rapports_dir, "regression_top10_communs.json"), "w") as f:
             json.dump({"variables_communes": list(communs)}, f, indent=2)
 
-    print("→ fichiers générés : stability_scores.csv, top10_stability.csv (+ top10_attrition.csv si dispo)")
+    print("→ fichiers générés : regression_scores.csv, regression_top10.csv (+ regression_top10_attrition.csv si dispo)")
 
 
 # fin
