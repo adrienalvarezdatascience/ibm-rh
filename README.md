@@ -31,3 +31,23 @@ L’objectif : montrer sur un cas concret comment j’utilise la data pour des s
 ### 3) Stabilité (régression)
 - **But** : comprendre ce qui retient les personnes (ancienneté / *YearsAtCompany*).  
 - **Méthode** : modèles Linéaire, Arbre, Random Forest.
+
+
+## Lancer le projet
+
+1. Cloner le dépôt
+   ```bash
+git clone https://github.com/adrienalvarezdatascience/ibm-hr.git
+cd ibm-hr```
+
+Installer les dépendances
+   ```bash
+pip install -r requirements.txt
+   ```
+
+Lancer le script principal
+   ```bash
+python src/main.py
+   ```
+
+Consulter les résultats générés dans le dossier reports/.
