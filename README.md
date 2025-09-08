@@ -19,7 +19,7 @@ L’objectif : montrer sur un cas concret comment j’utilise la data pour des s
 
 ## Contenu du projet
 
-### 1) Indicateur rétention (classification)
+### 1) Prediction depart (Regression)
 - **But** : repérer tôt les personnels à risque pour déclencher un soutien ciblé (moral, famille, affectation).  
 - **Méthode** : régression logistique (comparée à arbre, Random Forest, KNN), validation croisée, métriques adaptées au déséquilibre (PR-AUC, F1).  
 - **Pratique** : choix d’un **seuil métier** (mode *préventif* vs *très sûr*).
@@ -28,7 +28,7 @@ L’objectif : montrer sur un cas concret comment j’utilise la data pour des s
 - **But** : regrouper les profils pour adapter les actions RH.  
 - **Méthodes** : K-Means, visualisation PCA.
 
-### 3) Stabilité (régression)
+### 3) Indicateur rétention (classification)
 - **But** : comprendre ce qui retient les personnes (ancienneté / *YearsAtCompany*).  
 - **Méthode** : modèles Linéaire, Arbre, Random Forest.
 
